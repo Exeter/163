@@ -12,11 +12,11 @@ We shall complete the tasks in order of priority.
 
 In order of most to least priority.
 
-The program shall follow the rules of the game 163. Specifically, the program must give the player the cards with numbers on them, enable the users to add operators between these numbers to get an expression that evaluates to 163, accept submissions from users and check the solution submitted, after which the program shall give the user a new problem.
+1. The program shall follow the rules of the game 163. Specifically, the program must give the player the cards with numbers on them, enable the users to add operators between these numbers to get an expression that evaluates to 163, accept submissions from users and check the solution submitted, after which the program shall give the user a new problem.
 
-The program shall evaluate the user's personal performance: It shall time the user.
+2. The program shall evaluate the user's personal performance: It shall time the user.
 
-The program shall evaluate the user's performance relative to other users:
+3. The program shall evaluate the user's performance relative to other users:
 * Two players will be able to compete on the same problem with each other, and the first player who comes up with a solution wins.
 * The program uses a rating system to rate users against each other.
 
@@ -27,3 +27,9 @@ More than two players can play against each other on the same problem.
 The program shall take statistics on the user's performance(average time, std.dev and stuff)
 
 Text chat(instant messanging)
+
+------END OF REQUIREMENTS------
+
+Deadline 1: The first two requirements shall be fulfilled by the end of the year 2013.
+
+The above has not been agreed to.
