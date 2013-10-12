@@ -9,3 +9,4 @@ Team members:
 * Calvin Luo
 * Frank Fan
 * Eugene Park
+* Kevin Sun
