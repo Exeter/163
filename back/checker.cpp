@@ -1,11 +1,18 @@
 #include <iostream>
-int gcd(int a, int b){
+//calculates the greatest common divisor of two numbers a and b
+int gcd(int a, int b) {
 	return (a==0)?b:gcd(b%a,a);
 }
+
+//structure representing a fraction. the operations +, -, *, / are supported and these
+//operators do not change the numerator or denominator of the operands. == is supported
+//for comparison
 struct fraction{
+
 	int numerator;
 	int denominator;
 
+	//reduces the fraction into lowest terms (numerator and denominator are relatively prime)
 	void reduce(){
 		int g = gcd(numerator, denominator);
 		numerator /= g;
@@ -13,12 +20,12 @@ struct fraction{
 	}
 
 	//adds a fraction to this fraction and returns the result
-	fraction operator+(const fraction augend) {
+	fraction operator+(const fraction addend) {
 		fraction sum;
 
 		//determine a common denominator
-		sum.denominator = denominator*augend.denominator;
-		sum.numerator = numerator*augend.denominator + denominator*augend.numerator;
+		sum.denominator = denominator*addend.denominator;
+		sum.numerator = numerator*addend.denominator + denominator*addend.numerator;
 
 		//rewrite in lowest terms
 		sum.reduce();
@@ -37,12 +44,27 @@ struct fraction{
 		return diff;
 	}
 
-	fraction operator*(const fraction multiplicand) {
+	//multiplies this fraction by another fraction and returns the result
+	fraction operator*(const fraction multiplier) {
 		fraction product;
-		product.denominator = denominator*multiplicand.denominator;
-		product.numerator = numerator*multiplicand.numerator;
+		product.denominator = denominator*multiplier.denominator;
+		product.numerator = numerator*multiplier.numerator;
 		product.reduce();
 		return product;
+	}
+
+	//divides this fraction by another fraction and returns the result
+	fraction operator/(const fraction divisor){
+		fraction quotient;
+		quotient.numerator = numerator*divisor.denominator;
+		quotient.denominator = denominator*divisor.numerator;
+		quotient.reduce();
+		return quotient;
+	}
+
+	//returns if two fractions are equal (i.e. their numerator and denominator are the same)
+	int operator==(const fraction f ) {
+		return ( numerator == f.numerator ) && ( denominator == f.denominator );
 	}
 };
 
@@ -54,20 +76,77 @@ numbers: the list of numbers the user is allowed to manipulate
 target: the target number the user must obtain by manipulating a list of numbers
 */
 
-bool check(int sizeNum, fraction *numbers , int target ){
+bool check(int sizeNum, fraction *numbers , fraction target ) {
+	if ( sizeNum == 1 ) {
+		return (numbers[ 0 ] == target);
+	} else {
+		//std::cout << sizeNum << std::endl;
+		for(int i = 0; i < sizeNum; i++){
+			for(int j = i+1; j < sizeNum; j++){
+				fraction newNumbers[ sizeNum ];
+				int newNumIndex= 0;
+				for(int k = 0; k < sizeNum; k++){
+					if(k!=j && k!=i){
+						newNumbers[newNumIndex] = numbers[k];
+						newNumIndex++;
+					}
+				}
 
+				newNumbers[newNumIndex] = numbers[i]+numbers[j];
+				if(check(sizeNum-1, newNumbers, target)){
+					return true;
+				}
 
+				newNumbers[newNumIndex] = numbers[i]-numbers[j];
+				if(check(sizeNum-1, newNumbers, target)){
+					return true;
+				}
+
+				newNumbers[newNumIndex] = numbers[j]-numbers[i];
+				if(check(sizeNum-1, newNumbers, target)){
+					return true;
+				}
+
+				newNumbers[newNumIndex] = numbers[i]*numbers[j];
+				if(check(sizeNum-1, newNumbers, target)){
+					return true;
+				}
+
+				if(numbers[j].numerator != 0 && numbers[i].denominator != 0){
+					newNumbers[newNumIndex] = numbers[i]/numbers[j];
+					if(check(sizeNum-1, newNumbers, target)){
+						return true;
+					}
+				}
+
+				if(numbers[i].numerator != 0 && numbers[j].denominator != 0){
+					newNumbers[newNumIndex] = numbers[j]/numbers[i];
+					if(check(sizeNum-1, newNumbers, target)){
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
 }
 
 int main(){
-	fraction a;
-	a.numerator = 1;
-	a.denominator = 3;
-	fraction b;
-	b.numerator = 2;
-	b.denominator = 12;
-	fraction c = b+a;
-	c.reduce();
-	std::cout << c.numerator << " " << c.denominator << std::endl;
+
+	//define the fraction for 163
+	fraction onesixtythree;
+	onesixtythree.numerator = 163;
+	onesixtythree.denominator = 1;
+	fraction ten;
+	ten.numerator = 10;
+	ten.denominator = 1;
+
+	fraction test[ 6 ];
+	for(int i = 0; i < 6; i++){
+		std::cin >> test[i].numerator;
+		std::cin >> test[i].denominator;
+	}
+	std::cout << check(6,test,ten) << std::endl;
+
 	return 0;
 }
