@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      window.onload = function() {
+        var socket = io.connect("http://localhost");
+        socket.on('server_to_client', function(data) {
+          document.getElementById("out").innerText += "\n" + data.data;
+        });
+        document.getElementById("in").onkeydown = function(e) {
+          if (e.keyCode == 13) {
+            socket.emit("client_to_server", {data: this.value});
+          }
+        };
+      };
+    </script>
+  </head>
+  <body>
+    <pre id="out">
+    </pre>
+    <input id="in"/>
+  </body>
+</html>
