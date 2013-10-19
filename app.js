@@ -1,6 +1,7 @@
 var app = require('http').createServer(handler),
     io = require('socket.io').listen(app),
-    fs = require('fs')
+    fs = require('fs'),
+    people = [];
 
 app.listen(80);
 
@@ -19,12 +20,8 @@ function handler(req, res) {
 }
 
 io.sockets.on('connection', function (socket) {
-  socket.on('client_to_server', function(data) {
-    console.log(data.data);
-  });
-  process.stdin.resume();
-  process.stdin.setEncoding('utf8');
-  process.stdin.on('data', function(string) {
-    socket.emit("server_to_client", { data: string });
-  });
+  var id = people.length;
+  socket.on('client_to_server', function(data) { console.log(data, people[data.who]); people[data.who](id + ": " + data.what); });
+  socket.emit("id", {data: id});
+  people.push(function(string) { console.log("writing " + string); socket.emit("server_to_client", { data: string }); });
 });

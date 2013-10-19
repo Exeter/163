@@ -7,9 +7,13 @@
         socket.on('server_to_client', function(data) {
           document.getElementById("out").innerText += "\n" + data.data;
         });
-        document.getElementById("in").onkeydown = function(e) {
+        socket.on("id", function(data) {
+          document.getElementById("out").innerText += "Your id is: " + data.data;
+        });
+        document.getElementById("what").onkeydown = function(e) {
           if (e.keyCode == 13) {
-            socket.emit("client_to_server", {data: this.value});
+            socket.emit("client_to_server", {who: Number(document.getElementById("who").value), what: this.value});
+            this.value = "";
           }
         };
       };
@@ -18,6 +22,6 @@
   <body>
     <pre id="out">
     </pre>
-    <input id="in"/>
+    <input id="who"/><input id="what"/>
   </body>
 </html>
