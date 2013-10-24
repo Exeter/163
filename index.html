@@ -6,27 +6,31 @@
     <body>
         <div id="dashboard">
             <div id="main">
-                <div class="card" id="left_paren">(</div>
-                <div class="card" id="right_paren">)</div>
+                <button class="card" id="left_paren">(</button>
+                <button class="card" id="right_paren">)</button>
+                <button class="card" id="backspace"><-</button>
                 <br/>
-                <div class="card" id="first"></div>
-                <div class="card" id="second"></div>
-                <div class="card" id="third"></div>
+                <button class="card" id="first">13</button>
+                <button class="card" id="second">13</button>
+                <button class="card" id="third">1</button>
                 <br/>
-                <div class="card" id="fourth"></div>
-                <div class="card" id="fifth"></div>
-                <div class="card" id="sixth"></div>
+                <button class="card" id="fourth">1</button>
+                <button class="card" id="fifth">1</button>
+                <button class="card" id="sixth">1</button>
                 <br/>
             </div>
             <div id="operators">
-                <div class="card" id="division">/</div>
-                <div class="card" id="multiplication">*</div>
-                <div class="card" id="subtraction">-</div>
-                <div class="card" id="addition">+</div>
+                <button class="card" id="division">/</button>
+                <button class="card" id="multiplication">*</button>
+                <button class="card" id="subtraction">-</button>
+                <button class="card" id="addition">+</button>
             </div>
-            <div id="input">
-                
-            </div>
+            <textarea id="input" autofocus></textarea>
         </div>
+        <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+        <script>
+            window.jQuery || document.write('<script src="vendor/jquery-1.10.2.min.js"><\/script>')
+        </script>
+        <script src="index.js"></script>
     </body>
 </html>
