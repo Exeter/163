@@ -1,4 +1,7 @@
+
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
 //calculates the greatest common divisor of two numbers a and b
 int gcd(int a, int b) {
 	return (a==0)?b:gcd(b%a,a);
@@ -63,6 +66,7 @@ struct fraction{
 	}
 
 	//returns if two fractions are equal (i.e. their numerator and denominator are the same)
+
 	int operator==(const fraction f ) {
 		return ( numerator == f.numerator ) && ( denominator == f.denominator );
 	}
@@ -131,6 +135,19 @@ bool check(int sizeNum, fraction *numbers , fraction target ) {
 	}
 }
 
+//generates cards (that have a solution) given seed, which is passed into the function
+void generate(fraction *a, int nCards, fraction target, int seed){
+	//#YOLO
+
+	srand(seed);
+	while(1){
+		for(int i = 0; i < nCards; i++){
+			a[i].numerator = rand() % 13 + 1;
+			a[i].denominator = 1;
+		}
+		if(check(nCards, a, target)) return;
+	}
+}
 int main(){
 
 	//define the fraction for 163
@@ -142,11 +159,14 @@ int main(){
 	ten.denominator = 1;
 
 	fraction test[ 6 ];
-	for(int i = 0; i < 6; i++){
+	/*for(int i = 0; i < 6; i++){
 		std::cin >> test[i].numerator;
 		std::cin >> test[i].denominator;
 	}
-	std::cout << check(6,test,ten) << std::endl;
-
+	std::cout << check(6,test,ten) << std::endl;*/
+	generate(test,6,onesixtythree, 163);
+	for(int i = 0; i < 6; i++){
+		std::cout << test[i].numerator << "/" << test[i].denominator << std::endl;
+	}
 	return 0;
 }
