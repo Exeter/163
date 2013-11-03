@@ -28,9 +28,7 @@
 
 #input {
     display: block;
-    width: 460px;
     margin-top: 50px;
-    height: 60px;
     font-size: 50px;
     border-top: none;
     border-left: none;
@@ -53,4 +51,8 @@
     margin-left: 10px;
     font-size: 80px;
     font-weight: bold;
+}
+
+#result {
+    vertical-align: bottom;
 }

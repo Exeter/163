@@ -18,7 +18,7 @@ $(function() {
         var cursorPos = area.prop('selectionStart');
         var v = area.val(),
             t = $(this).text();
-        if(t != '<-') {
+        if(t != '\u232b') {
             var textBefore = v.substring(0, cursorPos),
                 textAfter = v.substring(cursorPos, v.length);
             area.val(textBefore + t + textAfter);
