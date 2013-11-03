@@ -32,4 +32,10 @@ $(function() {
             area.prop('selectionEnd', cursorPos - 1);
         }
     });
+
+    area.keypress(function (event) {
+        if (e && e.keyCode === 13) {
+            $("#result").text(evaluate(area.val()));
+        }
+    });
 });
