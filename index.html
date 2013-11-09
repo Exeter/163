@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>163</title>
+        <link rel="stylesheet" href="index.css">
+    </head>
+    <body>
+        <div id="title">163</div>
+        <div id="dashboard">
+            <div id="main">
+                <button class="card" id="left_paren">(</button>
+                <button class="card" id="right_paren">)</button>
+                <button class="card" id="backspace">&#9003;</button>
+                <br/>
+                <button class="card" id="first">13</button>
+                <button class="card" id="second">13</button>
+                <button class="card" id="third">1</button>
+                <br/>
+                <button class="card" id="fourth">1</button>
+                <button class="card" id="fifth">1</button>
+                <button class="card" id="sixth">1</button>
+                <br/>
+            </div>
+            <div id="operators">
+                <button class="card" id="division">&#247;</button>
+                <button class="card" id="multiplication">&#215;</button>
+                <button class="card" id="subtraction">-</button>
+                <button class="card" id="addition">+</button>
+            </div>
+            <input id="input" autofocus></textarea>
+        </div>
+        <div id="timer"></div>
+        <div id="result"></div>
+        <script src="//code.jquery.com/jquery-2.0.3.min.js"></script>
+        <script>
+            window.jQuery || document.write('<script src="vendor/jquery-2.0.3.min.js"><\/script>')
+        </script>
+        <script src="index.js"></script>
+    </body>
+</html>
