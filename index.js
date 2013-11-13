@@ -1,5 +1,6 @@
 $(function() {
     "use strict";
+
     function time(m, s) {
         s += 1;
         if (s == 60) {
