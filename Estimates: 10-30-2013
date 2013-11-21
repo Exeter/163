@@ -9,8 +9,8 @@ Total for front end: 3-9 hours
 
 
 Back end:
-[ ] Generate random problem                           0.5 hours
-[ ] Check submitted solutions                         2 +/- 1 hours ... (2-3 hours)
+[X] Generate random problem                           0.5 hours
+[X] Check submitted solutions                         2 +/- 1 hours ... (2-3 hours)
 
 Total for back end: 1.5-3.5 hours
 
@@ -20,7 +20,7 @@ Linking front and back end:
   [ ] (a) Enable client to send get requests + Encode data        0.5
   [ ] (b) Enable server to receive get requests                   0.25
   [ ] (c) Enable server to parse requests + Encode data           1 +/- 1 (1-2 hours)
-  [ ] (d) Enable server to notify lient of results + Encode data  0.5
+  [ ] (d) Enable server to notify client of results + Encode data  0.5
   
 Total for linking front and back end: 2.25 - 6.25 hours
 
