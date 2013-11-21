@@ -1,0 +1,19 @@
+Connection interface requirements:
+
+Server side:
+
+-Shall be usable by a Java program
+-Shall accept connections from any clients
+-Shall send messages (as Strings) to clients
+-Shall receive messages (as Strings) from clients
+-Shall provide a means of determining if a client lost connection to the server
+-Shall provide a means of terminating a connection with the client
+
+Client side:
+
+-Shall be usable by a Javascript program
+-Shall connect to any server
+-Shall send messages (as Strings) to the server
+-Shall receive messages (as Strings) from the server
+-Shall provide a means of determining connection to server was lost
+-Shall provide a means of terminating a connection with the server
