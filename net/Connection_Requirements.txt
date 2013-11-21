@@ -5,7 +5,7 @@ Server side:
 -Shall be usable by a Java program
 -Shall accept connections from any clients
 -Shall send messages (as Strings) to clients
--Shall receive messages (as Strings) from clients
+-Shall receive messages (as Strings) from clients as they are sent.
 -Shall provide a means of determining if a client lost connection to the server
 -Shall provide a means of terminating a connection with the client
 
