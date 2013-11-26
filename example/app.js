@@ -1,9 +1,9 @@
 var app = require('http').createServer(handler),
     io = require('socket.io').listen(app),
     fs = require('fs'),
-    people = [];
+    people = {};
 
-app.listen(80);
+app.listen(8080);
 
 function handler(req, res) {
   fs.readFile(__dirname + "/index.html",
@@ -20,8 +20,26 @@ function handler(req, res) {
 }
 
 io.sockets.on('connection', function (socket) {
-  var id = people.length;
-  socket.on('client_to_server', function(data) { console.log(data, people[data.who]); people[data.who](id + ": " + data.what); });
-  socket.emit("id", {data: id});
-  people.push(function(string) { console.log("writing " + string); socket.emit("server_to_client", { data: string }); });
+  var handle;
+
+  socket.on('register', function (data) {
+    if (data.handle in people) {
+      socket.emit('register', { success: false });
+    }
+    else {
+      handle = data.handle;
+      people[data.handle] = socket;
+      socket.emit('register', { success: true });
+      socket.broadcast.emit('message', { who: '<notice>', message: handle + ' logged in' });
+    }
+  });
+
+  socket.on('disconnect', function (data) {
+    delete people[handle];
+    socket.broadcast.emit('message', { who: '<notice>', message: handle + ' logged out' });
+  });
+
+  socket.on('message', function (data) {
+    people[data.who].emit('message', { who: handle, message: data.message });
+  });
 });

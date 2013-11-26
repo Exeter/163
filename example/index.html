@@ -3,25 +3,69 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
       window.onload = function() {
-        var socket = io.connect("http://localhost");
-        socket.on('server_to_client', function(data) {
-          document.getElementById("out").innerText += "\n" + data.data;
-        });
-        socket.on("id", function(data) {
-          document.getElementById("out").innerText += "Your id is: " + data.data;
-        });
-        document.getElementById("what").onkeydown = function(e) {
-          if (e.keyCode == 13) {
-            socket.emit("client_to_server", {who: Number(document.getElementById("who").value), what: this.value});
-            this.value = "";
+        var socket = io.connect("http://ecc.exeter.edu:8080"), out = document.getElementById("output"), who = document.getElementById("who");
+        document.getElementById("register").onkeydown = function(e) {
+          if (e.keyCode === 13) {
+            socket.emit('register', { 'handle': this.value });
+            socket.on('register', function (data) {
+              if (data.success) {
+                document.getElementById("registration").style.display = 'none';
+                document.getElementById("post_registration").style.display = 'block';
+              }
+              else {
+                document.getElementById("error").style.display = 'block';
+              }
+            });
           }
         };
+        document.getElementById("message").onkeydown = function (e) {
+          if (e.keyCode === 13) {
+            socket.emit('message', {
+              who: who.value,
+              message: this.value
+            });
+          }
+        };
+        socket.on('message', function (data) {
+          var new_message = document.createElement("div"), new_person = document.createElement("span"), new_text = document.createElement("span");
+          
+          new_person.addClass("person");
+          new_text.addClass("text");
+
+          if (new_text.textContent != undefined) {
+            new_person.textContent = data.who;
+            new_text.textContent = data.message;
+          }
+          else {
+            new_person.innerText = data.who;
+            new_text.innerText = data.message;
+          }
+
+          new_message.appendChild(new_person);
+          new_message.appendChild(new_text);
+
+          out.appendChild(new_message);
+        });
       };
     </script>
+    <style>
+      .person {
+        width: 100px;
+        color: #555;
+      }
+    </style>
   </head>
   <body>
-    <pre id="out">
-    </pre>
-    <input id="who"/><input id="what"/>
+    <div id="registration">
+      Enter a handle: <input id="register"/>
+      <div id="error" style="display:none">
+        An error occurred. Try using a different handle; this one might be taken.
+      </div>
+    </div>
+    <div id="post_registration" style="display:none">
+      <div id="output">
+      </div>
+      <input id="who" placeholder="recipient"/><input id="message" placeholder="message"/>
+    </div>
   </body>
 </html>
