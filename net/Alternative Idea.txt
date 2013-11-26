@@ -1,0 +1,15 @@
+Here is the networking that would work best for me:
+
+I would have:
+
+Program 1) Javascript program that accepts client connections (like the receptionist at a restaurant, who assigns clients to waiters)
+Program 2) Javascript program that deals with individual clients (like the waiter at a restaurant, who deals with the specific orders of a single client)
+
+1) Java server runs the Program #1.
+2) Client sends connection request to Program #1
+3) Program #1 outputs to stdout the information required to set up Program #2, a connection with an individual client
+4) Java server reads Program #1's stdout and uses information to run Program #2
+5) When client sends other requests (e.g. join a game of 163), Program #2 outputs to stdout information pertaining to request
+6) After server processes requeust, server sends information back to client by writing it to stdin of Program #2
+
+I'm not sure if step 3 and step 4 are possible, but this is my preferred way: server logic having full access to networking parts. If it's not possible, then networking parts calling the server logic is also fine.
