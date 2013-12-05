@@ -8,33 +8,35 @@
         <div id="title">163</div>
         <div id="dashboard">
             <div id="main">
-                <button class="card" id="left_paren" draggable="true">(</button>
-                <button class="card" id="right_paren" draggable="true">)</button>
-                <button class="card" id="backspace">&#9003;</button>
+                <div class="card" id="left_paren">(</div>
+                <div class="card" id="right_paren">)</div>
+                <div class="card" id="backspace">&#9003;</div>
                 <br/>
-                <button class="card" id="first" draggable="true">13</button>
-                <button class="card" id="second" draggable="true">13</button>
-                <button class="card" id="third" draggable="true">1</button>
+                <div class="card" id="first">13</div>
+                <div class="card" id="second">13</div>
+                <div class="card" id="third">1</div>
                 <br/>
-                <button class="card" id="fourth" draggable="true">1</button>
-                <button class="card" id="fifth" draggable="true">1</button>
-                <button class="card" id="sixth" draggable="true">1</button>
+                <div class="card" id="fourth">1</div>
+                <div class="card" id="fifth">1</div>
+                <div class="card" id="sixth">1</div>
                 <br/>
             </div>
             <div id="operators">
-                <button class="card" id="division" draggable="true">&#247;</button>
-                <button class="card" id="multiplication" draggable="true">&#215;</button>
-                <button class="card" id="subtraction" draggable="true">-</button>
-                <button class="card" id="addition" draggable="true">+</button>
+                <div class="card" id="division">&#247;</div>
+                <div class="card" id="multiplication">&#215;</div>
+                <div class="card" id="subtraction">-</div>
+                <div class="card" id="addition">+</div>
             </div>
-            <input id="input" autofocus></textarea>
+            <input id="input" autofocus>
+            <button id="submit">Submit</button>
         </div>
         <div id="timer"></div>
         <div id="result"></div>
-        <script src="//code.jquery.com/jquery-2.0.3.min.js"></script>
+        <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
         <script>
             window.jQuery || document.write('<script src="vendor/jquery-2.0.3.min.js"><\/script>')
         </script>
+        <script src="vendor/socket.io.min.js"></script>
         <script src="index.js"></script>
     </body>
 </html>
