@@ -1,19 +1,23 @@
 $(function() {
     "use strict";
-    var cards = [$("#first"), $("#second"), $("#third"), $("#fourth"), $("#fifth"), $("#sixth")], socket, i, area = $("#input"), in_area = [], cardtexts = [];
+    var cards = [$("#first"), $("#second"), $("#third"), $("#fourth"), $("#fifth"), $("#sixth")], socket, i, area = $("#input"), in_area = [], cardtexts = [], m, s, timer_el = $("#timer");
 
-    function time(m, s) {
+    function time() {
         s += 1;
         if (s == 60) {
             m += 1;
             s -= 60;
         }
-        $("#timer").html(m + ":" + (s < 10 ? '0':'') + s);
+        timer_el.html(m + ":" + (s < 10 ? '0':'') + s);
         setTimeout(function () {
-            time(m, s);
+            time();
         }, 1000);
     }
     time(0, -1);
+
+    function verify() {
+        var str = area.val(), els = str.split(/(+|\-|\*|\/)/);
+    }
 
     $(".card").click(function () {
         var cursorPos = area.prop('selectionStart');
@@ -32,20 +36,12 @@ $(function() {
             area.prop('selectionStart', cursorPos - 1);
             area.prop('selectionEnd', cursorPos - 1);
             $(this).attr('disabled', 'disabled');
-            in_area.push(t);
         }
+        verify();
     });
 
     area.keyup(function () {
         $("#result").text(eval(area.val()));
-    });
-
-    $(".card").mousedown(function () {
-        if ($(this).text() === '\u232b') {
-            return;
-        }
-        $(this).prop('selectionStart', 0);
-        $(this).prop('selectionEnd', $(this).text().length);
     });
 
     socket = io.connect('http://localhost:1300');
@@ -53,11 +49,14 @@ $(function() {
     socket.on('new', function (data) {
         for (i = 0; i < 6; i += 1) {
             cards[i].text(data[i]);
-            cardtexts[i] = data[i];
+            cardtexts[i] = parseInt(data[i]);
         }
     });
 
     $("#submit").click(function () {
-        socket.emit('submit', area.val());
+        socket.emit('submit', {
+            solution: area.val(),
+            time: m * 60 + s
+        });
     });
 });
