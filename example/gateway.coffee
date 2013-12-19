@@ -27,9 +27,9 @@ socket_server = net.createServer (conn) ->
     current_binding(id, string)
   conn.on 'data', (data) ->
     str = data.toString()
-    id = str[..str.indexOf(' ')]
-    message = str[str.indexOf(' ')..]
-    emitters[parsed.id](parsed.message)
+    id = Number(str[...str.indexOf(' ')])
+    message = str[str.indexOf(' ')+1..]
+    emitters[id](message)
 
 socket_server.listen 9001
 
