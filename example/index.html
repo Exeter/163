@@ -3,6 +3,7 @@
     <script src="http://localhost:8081/socket.io/socket.io.js"></script>
     <script>
       window.onload = function() {
+<<<<<<< HEAD
         var socket = io.connect("http://localhost:8081"), out = document.getElementById("output");
         window['identify'] = function(id) {
           socket.emit("identify", {id: id});
@@ -13,9 +14,30 @@
         socket.on('message', function(data) {
             console.log(data);
         });
+=======
+        var socket = io.connect("http://localhost");
+        socket.on('server_to_client', function(data) {
+          document.getElementById("out").innerText += "\n" + data.data;
+        });
+        socket.on("id", function(data) {
+          document.getElementById("out").innerText += "Your id is: " + data.data;
+        });
+        document.getElementById("what").onkeydown = function(e) {
+          if (e.keyCode == 13) {
+            socket.emit("client_to_server", {who: Number(document.getElementById("who").value), what: this.value});
+            this.value = "";
+          }
+        };
+>>>>>>> 305244f12fc20209af7160d5c188b29d021799dd
       };
     </script>
   </head>
   <body>
+<<<<<<< HEAD
+=======
+    <pre id="out">
+    </pre>
+    <input id="who"/><input id="what"/>
+>>>>>>> 305244f12fc20209af7160d5c188b29d021799dd
   </body>
 </html>
