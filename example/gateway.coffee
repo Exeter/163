@@ -21,15 +21,21 @@ app.listen 8080
 # Listen on a local port for the Java communication
 socket_server = net.createServer (conn) ->
   current_binding = binding
+  bound = true
   binding = (id, string) ->
     # Pass all socket.io responses on to the client
-    conn.write id + ' ' + string
+    if bound
+      conn.write id + ' ' + string
     current_binding(id, string)
+  
   conn.on 'data', (data) ->
     str = data.toString()
     id = Number(str[...str.indexOf(' ')])
     message = str[str.indexOf(' ')+1..]
     emitters[id](message)
+
+  conn.on 'end', ->
+    bound = false
 
 socket_server.listen 9001
 

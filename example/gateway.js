@@ -30,18 +30,24 @@
   app.listen(8080);
 
   socket_server = net.createServer(function(conn) {
-    var current_binding;
+    var bound, current_binding;
     current_binding = binding;
+    bound = true;
     binding = function(id, string) {
-      conn.write(id + ' ' + string);
+      if (bound) {
+        conn.write(id + ' ' + string);
+      }
       return current_binding(id, string);
     };
-    return conn.on('data', function(data) {
+    conn.on('data', function(data) {
       var id, message, str;
       str = data.toString();
       id = Number(str.slice(0, str.indexOf(' ')));
       message = str.slice(str.indexOf(' ') + 1);
       return emitters[id](message);
+    });
+    return conn.on('end', function() {
+      return bound = false;
     });
   });
 
