@@ -1,71 +1,21 @@
 <html>
   <head>
-    <script src="/socket.io/socket.io.js"></script>
+    <script src="http://localhost:8081/socket.io/socket.io.js"></script>
     <script>
       window.onload = function() {
-        var socket = io.connect("http://ecc.exeter.edu:8080"), out = document.getElementById("output"), who = document.getElementById("who");
-        document.getElementById("register").onkeydown = function(e) {
-          if (e.keyCode === 13) {
-            socket.emit('register', { 'handle': this.value });
-            socket.on('register', function (data) {
-              if (data.success) {
-                document.getElementById("registration").style.display = 'none';
-                document.getElementById("post_registration").style.display = 'block';
-              }
-              else {
-                document.getElementById("error").style.display = 'block';
-              }
-            });
-          }
+        var socket = io.connect("http://localhost:8081"), out = document.getElementById("output");
+        window['identify'] = function(id) {
+          socket.emit("identify", {id: id});
         };
-        document.getElementById("message").onkeydown = function (e) {
-          if (e.keyCode === 13) {
-            socket.emit('message', {
-              who: who.value,
-              message: this.value
-            });
-          }
-        };
-        socket.on('message', function (data) {
-          var new_message = document.createElement("div"), new_person = document.createElement("span"), new_text = document.createElement("span");
-          
-          new_person.addClass("person");
-          new_text.addClass("text");
-
-          if (new_text.textContent != undefined) {
-            new_person.textContent = data.who;
-            new_text.textContent = data.message;
-          }
-          else {
-            new_person.innerText = data.who;
-            new_text.innerText = data.message;
-          }
-
-          new_message.appendChild(new_person);
-          new_message.appendChild(new_text);
-
-          out.appendChild(new_message);
+        window['message'] = function(message) {
+          socket.emit("message", {message: message});
+        }
+        socket.on('message', function(data) {
+            console.log(data);
         });
       };
     </script>
-    <style>
-      .person {
-        width: 100px;
-        color: #555;
-      }
-    </style>
   </head>
   <body>
-    <div id="registration">
-      Enter a handle: <input id="register"/>
-      <div id="error" style="display:none">
-        An error occurred. Try using a different handle; this one might be taken.
-      </div>
-    </div>
-    <div id="post_registration" style="display:none">
-      <div id="output">
-      </div>
-      <input id="who" placeholder="recipient"/><input id="message" placeholder="message"/>
-    </div>
   </body>
 </html>

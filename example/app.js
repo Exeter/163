@@ -1,4 +1,5 @@
 var app = require('http').createServer(handler),
+    net = require('net'),
     io = require('socket.io').listen(app),
     fs = require('fs'),
     people = {};
