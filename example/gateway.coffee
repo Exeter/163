@@ -26,7 +26,9 @@ socket_server = net.createServer (conn) ->
     conn.write id + ' ' + string
     current_binding(id, string)
   conn.on 'data', (data) ->
-    parsed = JSON.parse(data.toString())
+    str = data.toString()
+    id = str[..str.indexOf(' ')]
+    message = str[str.indexOf(' ')..]
     emitters[parsed.id](parsed.message)
 
 socket_server.listen 9001
