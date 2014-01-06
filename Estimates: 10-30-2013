@@ -4,7 +4,7 @@ Front end:
 [X] display new problems + timer                      1 hour
 [ ] input filtering and local validation              2 +/- 1 hour ... (1-3 hours)
 
-Total for front end: 3-9 hours
+Total for front end: 2-4 hours
 
 
 Back end:
@@ -19,11 +19,7 @@ Linking front and back end:
   [ ] (a) Enable client to send get requests + Encode data        0.5
   [ ] (b) Enable server to receive get requests                   0.25
   [ ] (c) Enable server to parse requests + Encode data           1 +/- 1 (1-2 hours)
-<<<<<<< HEAD
-  [ ] (d) Enable server to notify lient of results + Encode data  0.5
-=======
   [ ] (d) Enable server to notify client of results + Encode data  0.5
->>>>>>> 70d6e6b38da98895edd3ef9c9e7b4a1f3ddc1e00
   
 Total for linking front and back end: 2.25 - 6.25 hours
 
